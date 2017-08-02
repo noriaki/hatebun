@@ -16,15 +16,19 @@
   "scripts": {
     "test": "jest",
     "watch:test": "jest --notify --watch",
-    "dev": "next",
-    "lint": "eslint --quiet pages components constants containers reducers store __tests__",
+    "dev": "babel-node server.js --plugins add-module-exports,transform-es2015-modules-commonjs",
+    "dev:server": "supervisor -w lib/server,server.js -x babel-node --save-pid dev.pid -- server.js --plugins add-module-exports,transform-es2015-modules-commonjs",
+    "lint": "eslint --quiet .",
     "build": "next build",
-    "start": "next start",
+    "start": "NODE_ENV=production node server.js",
     "heroku-postbuild": "yarn build"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-jest": "^20.0.3",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "enzyme": "^2.9.1",
     "eslint": "^4.3.0",
@@ -39,11 +43,15 @@
     "sinon": "^2.4.1"
   },
   "dependencies": {
+    "express": "^4.15.3",
+    "isomorphic-fetch": "^2.2.1",
     "material-ui": "^1.0.0-beta.3",
     "next": "^3.0.1-beta.20",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-jss": "^7.0.2"
+    "react-jss": "^7.0.2",
+    "resource-router-middleware": "^0.7.0",
+    "rss-parser": "^2.10.1"
   }
 }
